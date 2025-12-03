@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cliente API de Animales</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    #lista, #resultado {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #0078ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005fcc;
+    }
+    input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #999;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cliente Web - API de Animales</h1>
+  <p>Este cliente consume tu API REST creada con Express.</p>
+
+<button onclick="listarAnimales()">📋 Listar todos los animales</button>
+
+  <div id="lista"></div>
+
+  <hr>
+
+  <h3>Buscar animal por ID</h3>
+  <input type="number" id="idAnimal" placeholder="Ingrese ID (0 a 9)" />
+  <button onclick="buscarPorID()">🔍 Buscar</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    const API_URL = "http://localhost:3000";
+
+    async function listarAnimales() {
+      const res = await fetch(API_URL + "/animales");
+      const data = await res.json();
+      document.getElementById("lista").innerHTML = 
+        "<h2>Listado:</h2><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+
+```
+}
+
+async function buscarPorID() {
+  const id = document.getElementById("idAnimal").value;
+  if (id === "") return alert("Ingrese un ID");
+
+  const res = await fetch(API_URL + "/animales/" + id);
+  const data = await res.json();
+
+  document.getElementById("resultado").innerHTML =
+    "<h2>Resultado:</h2><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+}
+```
+
+  </script>
+
+</body>
+</html>
